@@ -11,25 +11,7 @@ function Anime(title, episode, date, score, status, image, description  ) {
   this.description=description;
 }
 
-
-// function addAnimeToCinema() {
-//   const title=document.getElementById("title");
-//   const episode=document.getElementById("episode");
-//   const date=document.getElementById("date");
-//   const image=document.getElementById("image");
-//   const description=document.getElementById("description");
-
-//   const new_Anime=Anime(title, episode, date, image,description);
-//   myCinema.push(new_Anime);
-// }
-
-// const add_new_button=document.getElementById("button_add_new");
-// add_new_button.addEventListener('click',addAnimeToCinema);
-
-
-
-
-// four existing animes
+// five existing animes
 const dragon_ball=new Anime(
   "Dragon Ball Z",
   "291",
@@ -87,6 +69,8 @@ myCinema.push(naruto);
 myCinema.push(yu_gi_oh);
 myCinema.push(chuuka_ichiban);
 
+// different functions
+
 function display_cards() {
   let card_container=document.querySelector(".animeshelf");
   card_container.textContent=""; 
@@ -122,16 +106,6 @@ function display_cards() {
       card_container.appendChild(card_div);
   }
 }
-
-display_cards();
-
-function find_the_anime(image_title){
-  for (let index in myCinema){
-    if(myCinema[index].title===image_title)
-      return index;
-  }
-}
-
 
 function display_details(e){
 
@@ -177,44 +151,131 @@ function display_details(e){
 
   document.querySelector(".align-description").textContent="Description: ";
   detail_description.textContent=anime_in_cinema.description;
-  //alt
-
-  
 }
 
-let my_cards = document.querySelectorAll(".card_div>img");
-my_cards.forEach(unit=> unit.addEventListener('click', display_details)
-);
+// Find the index of an element according to the title
+function find_the_anime(image_title){
+  for (let index in myCinema){
+    if(myCinema[index].title===image_title)
+      return index;
+  }
+}
 
-let image_title
+
+// Change the status of an anime
 function change_status(e){
-  image_title=this.parentNode.firstChild.alt; //the title of the anime
+
+  let image_title=this.parentNode.firstChild.alt; //the title of the anime
   console.log(image_title);
   const target_anime=myCinema[find_the_anime(image_title)];
   if(target_anime.status === "Unwatched")
+  {
+    this.style.color="blue";
     myCinema[find_the_anime(image_title)].status="Watched";
+  }
   else
+  {
+    this.style.color="black";
     myCinema[find_the_anime(image_title)].status="Unwatched";
+  }
 
-  if(document.querySelector(".info_status")!==null)
+  if(document.querySelector(".info_status")!==null 
+  && image_title===document.querySelector(".info_title").textContent )
+  // if the toggled status doesn't belong to the current display anime, don't change the display anime's status
     document.querySelector(".info_status").innerHTML=myCinema[find_the_anime(image_title)].status;
 }
-
-let status_buttons=document.querySelectorAll(".tick_span");
-status_buttons.forEach(unit=>unit.addEventListener('click', change_status)
-);
 
 
 // Delete the card
 function delete_card(e){
+  // remove the card from the animeshelf
   const animeshelf_node = document.querySelector(".animeshelf");
   animeshelf_node.removeChild(this.parentNode);
+  // remove the item from the Array myCinema
+  let delete_index=find_the_anime(this.parentNode.childNodes[0].alt);
+  myCinema.splice(delete_index,1);
+
   const detail = document.querySelector(".detail");
   detail.classList.add("hide");
   const to_be_removed=document.querySelector(".to_be_removed");
   to_be_removed.classList.remove("hide");
 }
 
+// Control the modal
+let modal =document.querySelector(".modal");
+
+let btn=document.querySelector(".add_new_anime");
+
+let close_span=document.querySelector(".close");
+
+let cancel_button=document.querySelector(".cancel");
+
+btn.onclick=function(){
+  modal.style.display="block";
+}
+
+close_span.onclick=function(){
+  modal.style.display="none";
+}
+
+cancel_button.onclick=function(){
+  modal.style.display="none";
+}
+
+window.onclick=function(e){
+  if(e.target == modal){
+    modal.style.display="none";
+  }
+}
+
+
+
+display_cards();
+
+let my_cards = document.querySelectorAll(".card_div>img");
+let status_buttons=document.querySelectorAll(".tick_span");
 let delete_buttons = document.querySelectorAll(".cross_span");
+
+// Submit the form data and store it
+document.querySelector('form').addEventListener('submit', (e) => {
+  const formData = new FormData(e.target);
+
+  const newly_added_anime=new Anime(
+    formData.get("form_title"),
+    formData.get("form_episode"),
+    formData.get("form_date"),
+    formData.get("form_score"),
+    formData.get("form_status"),
+    "./images/placeholder.png",
+    formData.get("form_description")
+    );
+
+  myCinema.push(newly_added_anime);
+
+  let modal =document.querySelector(".modal");
+  modal.style.display="none";
+  // close the modal after a "submit"
+  display_cards();
+  e.preventDefault(); 
+
+  // Reassign the elements since they are recreated 
+  my_cards = document.querySelectorAll(".card_div>img");
+  status_buttons=document.querySelectorAll(".tick_span");
+  delete_buttons = document.querySelectorAll(".cross_span");
+
+  my_cards.forEach(unit=> unit.addEventListener('click', display_details)
+  );
+  status_buttons.forEach(unit=>unit.addEventListener('click', change_status)
+  );
+  delete_buttons.forEach(unit=>unit.addEventListener('click', delete_card)
+  );
+});
+
+
+// EventListeners for displaying the details, changing the watch status and deleting the cards
+my_cards.forEach(unit=> unit.addEventListener('click', display_details)
+);
+status_buttons.forEach(unit=>unit.addEventListener('click', change_status)
+);
 delete_buttons.forEach(unit=>unit.addEventListener('click', delete_card)
 );
