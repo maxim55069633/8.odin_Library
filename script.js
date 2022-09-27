@@ -202,6 +202,7 @@ function delete_card(e){
 }
 
 // Control the modal
+// How to create a modal box? JavaScript
 let modal =document.querySelector(".modal");
 
 let btn=document.querySelector(".add_new_anime");
@@ -239,6 +240,7 @@ let delete_buttons = document.querySelectorAll(".cross_span");
 // Submit the form data and store it
 document.querySelector('form').addEventListener('submit', (e) => {
   const formData = new FormData(e.target);
+  // how to get information from form in javascript?
 
   const newly_added_anime=new Anime(
     formData.get("form_title"),
