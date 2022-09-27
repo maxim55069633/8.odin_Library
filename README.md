@@ -5,14 +5,14 @@
 In this project, I practice how to write an object constructor and instantiate the object. (That is anime in my case). I am also aware of the importance of reasonable data stucture when I want to store or use data efficiently.
 
 I successfully overcome the following obstables:
-1.how to set a constraint on users' uploaded file? E.g. Only accept images.
-2.how to get information from form in javascript?
-3.How to create a modal box?
+1. how to set a constraint on users' uploaded file? E.g. Only accept images.
+2. how to get information from form in javascript?
+3. How to create a modal box?
 
 Screenshot:
-1.
+1. 
 ![Sample 1](./images/sample1.png)
-2.
+2. 
 ![Sample 2](./images/sample2.png)
 
 Credit to the images from Bing under the filter of free to share and use commercially
