@@ -1,6 +1,6 @@
 # odin_Library
 
-[Live preview](https://maxim55069633.github.io/odin_Library/)
+[Live preview](https://maxim55069633.github.io/8.odin_Library/)
 
 In this project, I practice how to write an object constructor and instantiate the object. (That is anime in my case). I am also aware of the importance of reasonable data stucture when I want to store or use data efficiently.
 
