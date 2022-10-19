@@ -1,10 +1,12 @@
 # odin_Library
 
+[Task Description](https://www.theodinproject.com/lessons/node-path-javascript-library)
+
 [Live preview](https://maxim55069633.github.io/8.odin_Library/)
 
 In this project, I practice how to write an object constructor and instantiate the object. (That is anime in my case). I am also aware of the importance of reasonable data stucture when I want to store or use data efficiently.
 
-I successfully overcome the following obstables:
+I learn:
 1. Set a constraint on users' uploaded file? E.g. Only accept images.
 2. Get information from form in javascript?
 3. Create a modal box?
